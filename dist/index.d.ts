@@ -120,6 +120,9 @@ export interface Order {
     custom?: Record<string, string>;
     status: OrderStatus;
     receivedAt: string;
+    /** When Shippified first created the order (counts toward the monthly
+     *  limit). Missing on orders created before this field existed. */
+    createdAt?: string;
     updatedAt?: string;
     rawText: string;
     intakeIds?: string[];
@@ -219,6 +222,12 @@ export interface EmailSource {
         ingested?: number;
         duplicates?: number;
         ignored?: number;
+        /** Messages skipped because you deleted their order by hand. */
+        dismissed?: number;
+        /** "interrupted" when the server restarted mid-rebuild. */
+        status?: "running" | "done" | "failed" | "interrupted";
+        /** One-line summary of the run. */
+        message?: string;
         error?: string;
     };
     lastPolledAt?: string;
@@ -267,12 +276,14 @@ export interface ShareCard {
         checkouts: boolean;
     };
     theme: ShareCardTheme;
+    /** Spend and delivery figures are left out when the card was created
+     *  without Stats (`include.stats === false`). */
     snapshot: {
-        totalSpendCents: number;
+        totalSpendCents?: number;
         orderCount: number;
         unitCount: number;
-        deliveredCount: number;
-        fulfillmentPct: number;
+        deliveredCount?: number;
+        fulfillmentPct?: number;
         biggestDay?: {
             date: string;
             count: number;
@@ -312,7 +323,9 @@ export interface WebhookLog {
     /** Raw payload (capped at 20KB). */
     rawPayload: string;
     parser: string;
-    outcome: "created" | "merged" | "review" | "rejected";
+    /** `skipped`: from an order you deleted by hand. `test`: a test post
+     *  (`x-shippified-test: 1`) that created nothing. */
+    outcome: "created" | "merged" | "review" | "rejected" | "skipped" | "test";
     parsedOrderId?: string;
     error?: string;
     receivedAt: string;
