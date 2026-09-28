@@ -6,13 +6,13 @@ Zero runtime dependencies. Works in Node 18+ (global `fetch`), browsers, and wor
 
 ## Install
 
-Install it from GitHub (the repository ships the built `dist/`):
+Install it from npm:
 
 ```bash
-npm install github:Shippified/shippified-sdk#v0.2.1
+npm install shippified-sdk
 ```
 
-Leave off `#v0.2.1` to track the latest commit on `main`. The package isn't on the npm registry yet, so `npm install shippified-sdk` won't find it.
+To use the latest `main` instead of the npm release, run `npm install github:Shippified/shippified-sdk` (this repository ships the built `dist/`).
 
 ## Quick start
 

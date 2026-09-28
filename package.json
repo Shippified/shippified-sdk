@@ -1,6 +1,6 @@
 {
   "name": "shippified-sdk",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "TypeScript client for the Shippified REST API: orders, tracking, email intake, templates, webhooks, share cards.",
   "type": "module",
   "main": "./dist/index.js",
