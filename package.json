@@ -1,16 +1,31 @@
 {
   "name": "shippified-sdk",
-  "version": "0.1.0",
-  "description": "Official TypeScript client for the Shippified API. Cooks, tracking, profitability, share cards.",
+  "version": "0.2.0",
+  "description": "TypeScript client for the Shippified REST API: orders, tracking, email intake, templates, webhooks, share cards.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md", "LICENSE"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run typecheck && npm test"
   },
   "devDependencies": {
     "typescript": "^5.6.0"
@@ -18,11 +33,21 @@
   "engines": {
     "node": ">=18"
   },
-  "keywords": ["shippified", "reseller", "sneaker bot", "discord webhook", "tracking", "carrier api"],
+  "keywords": [
+    "shippified",
+    "reseller",
+    "order tracking",
+    "discord webhook",
+    "tracking",
+    "carrier api"
+  ],
   "license": "MIT",
-  "homepage": "https://shippified.net/docs",
+  "homepage": "https://github.com/Shippified/shippified-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alphajew420/shippified"
+    "url": "git+https://github.com/Shippified/shippified-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shippified/shippified-sdk/issues"
   }
 }
